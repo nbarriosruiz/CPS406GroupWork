@@ -18,8 +18,10 @@ public class TreasurerUI {
 	private JMenuItem	about, content, documentation, support, checkForUpdates;
 	
 	private JTabbedPane	tabbedPane;
-	private JPanel		accountsTab;
+	private JSplitPane	accountsTab;
+	private JScrollPane	accountsScrollPane;
 	private JTextArea	accountsTextArea;
+	private JButton		printButton;
 	private JPanel		managementTab;
 	
 	public TreasurerUI(String userName) {
@@ -61,26 +63,40 @@ public class TreasurerUI {
 		return managementTab;
 	}
 	
-	public JPanel accountsTab() {
-		accountsTab = new JPanel(new GridLayout(1,2));
+	public JSplitPane accountsTab() {
+		accountsTab = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		accountsTab.setDividerLocation(100);
 		
-		JPanel accountsTextPanel = 	new JPanel(new BorderLayout());
-		accountsTextArea = 			new JTextArea();
-		JPanel toolsPanel = 		new JPanel(new GridLayout());
+		accountsTextArea =			new JTextArea();
+		accountsScrollPane = 		new JScrollPane(accountsTextArea);
 		
-		accountsTextPanel.setBorder(BorderFactory.createEtchedBorder());
-		accountsTextPanel.add(accountsTextArea, BorderLayout.CENTER);
+		accountsScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		accountsScrollPane.setMinimumSize(new Dimension(300, 600));
 		
-		accountsTab.add(toolsPanel);
-		accountsTab.add(accountsTextPanel);
+		accountsTab.add(optionsPanel());
+		accountsTab.add(accountsScrollPane);
 		
 		return accountsTab;
 	}
 	
-	public JPanel introPanel() {
-		JPanel introPanel = new JPanel(new BorderLayout());
+	public JPanel optionsPanel() {
+		JPanel optionsPanel = new JPanel(new GridLayout(16,1));
+		optionsPanel.setMinimumSize(new Dimension(100, 600));
 		
-		introPanel.setLayout(new GridBagLayout());
+		JPanel centeredText = new JPanel(new GridBagLayout());
+		JLabel optionsLabel = new JLabel("Options");
+		printButton = new JButton("print");
+		
+		centeredText.add(optionsLabel);
+		
+		optionsPanel.add(centeredText);
+		optionsPanel.add(printButton);
+		
+		return optionsPanel;
+	}
+	
+	public JPanel introPanel() {
+		JPanel introPanel = new JPanel(new GridBagLayout());
 		
 		introPanel.add(new JLabel(userName + " signed in as Treasurer"));
 		
