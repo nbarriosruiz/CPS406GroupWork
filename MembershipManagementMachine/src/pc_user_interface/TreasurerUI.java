@@ -12,8 +12,7 @@ import javax.swing.border.MatteBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class TreasurerUI {
-	private JFrame 		frame;
+public class TreasurerUI extends JFrame{
 	private int			frameWidth 	= 400;
 	private int			frameHeight = 600;
 	
@@ -26,7 +25,7 @@ public class TreasurerUI {
 	private JMenuItem	about, content, documentation, support, checkForUpdates;
 	
 	private JTabbedPane	tabbedPane;
-	private JSplitPane	accountsTab;
+	private JSplitPane	managementTab;
 	private JScrollPane	accountsScrollPane;
 	private JTextArea	accountsTextArea;
 	private JPanel 		panel, 		panel_1, 	panel_2, 	panel_3, 	panel_4, 
@@ -45,31 +44,31 @@ public class TreasurerUI {
 	private JLabel 		lblPercentage;
 	private JLabel 		lblOptions;
 	private JButton 	btnPrint;
-	private JSplitPane	managementTab;
+	private JSplitPane	accountsTab;
 	
-	public TreasurerUI(String userName) {
+	public TreasurerUI(String frameTitle, String userName) {
+		setTitle(frameTitle);
 		this.userName = userName;
-		frame = new JFrame("Membership Management Machine");
-		frame.setVisible(true);
+		setVisible(true);
 		this.fillFrame();
-		frame.setSize(frameWidth, frameHeight);
-		frame.setMinimumSize(new Dimension(frameWidth, frameHeight));
+		setSize(frameWidth, frameHeight);
+		setMinimumSize(new Dimension(frameWidth, frameHeight));
 		//frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	public void fillFrame() {
-		frame.setJMenuBar(accountsMenuBar());
-		frame.getContentPane().add(introPanel(),	BorderLayout.NORTH);
-		frame.getContentPane().add(tabbedPane(),	BorderLayout.CENTER);
+		setJMenuBar(accountsMenuBar());
+		getContentPane().add(introPanel(),	BorderLayout.NORTH);
+		getContentPane().add(tabbedPane(),	BorderLayout.CENTER);
 	}
 	
 	public JTabbedPane tabbedPane() {
 		tabbedPane = new JTabbedPane();
 		
-		tabbedPane.addTab("Management", null, managementTab(),	null);
+		tabbedPane.addTab("Accounts", null, accountsTab(),	null);
 		
-		tabbedPane.addTab("Accounts",	null, accountsTab(),	null);
+		tabbedPane.addTab("Management",	null, managementTab(),	null);
 		
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
@@ -80,16 +79,16 @@ public class TreasurerUI {
 		return tabbedPane;
 	}
 	
-	public JPanel managementTab() {
-		managementTab = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-		managementTab.setDividerLocation(frameWidth / 3);
-		
-		return managementTab;
-	}
-	
 	public JSplitPane accountsTab() {
 		accountsTab = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		accountsTab.setDividerLocation(frameWidth / 3);
+		
+		return accountsTab;
+	}
+	
+	public JSplitPane managementTab() {
+		managementTab = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		managementTab.setDividerLocation(frameWidth / 3);
 		
 		accountsTextArea =		new JTextArea();
 		accountsScrollPane =	new JScrollPane(accountsTextArea);
@@ -99,10 +98,10 @@ public class TreasurerUI {
 		accountsScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		accountsScrollPane.setMinimumSize(new Dimension(width, height));
 		
-		accountsTab.add(optionsPanel());
-		accountsTab.add(accountsScrollPane);
+		managementTab.add(optionsPanel());
+		managementTab.add(accountsScrollPane);
 		
-		return accountsTab;
+		return managementTab;
 	}
 	
 	public JPanel optionsPanel() {

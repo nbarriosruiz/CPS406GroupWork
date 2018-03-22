@@ -1,9 +1,9 @@
 package pc_user_interface;
 
 public class Main {
-	private static TreasurerUI treasurerUI;
 	
 	public static void main(String[] args) {
-		treasurerUI = new TreasurerUI("Jedi Master Luigibird");
+		TreasurerUI treasurerUI = new TreasurerUI("Membership Management Machine", "Jedi Master Luigibird");
+		CustomerUI customerUI = new CustomerUI("Welcome to LA Fitness");
 	}
 }
