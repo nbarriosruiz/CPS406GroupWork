@@ -26,25 +26,22 @@ public class TreasurerUI extends JFrame{
 	
 	private JTabbedPane	tabbedPane;
 	private JSplitPane	managementTab;
-	private JScrollPane	accountsScrollPane;
-	private JTextArea	accountsTextArea;
+	private JPanel		managementOptionsPanel;
+	private JScrollPane	incomeStatementScrollPane;
+	private JTextArea	incomeStatementTextArea;
 	private JPanel 		panel, 		panel_1, 	panel_2, 	panel_3, 	panel_4, 
-						panel_5,	panel_6, 	panel_7, 	panel_8, 	panel_9,
-						panel_10, 	panel_11, 	panel_12, 	panel_13, 	panel_14,
-						panel_15;
-	private JLabel 		lblIncomeStatement;
-	private JLabel 		lblSales;
-	private JTextField 	textField_sales;
-	private JLabel 		lblIncome;
-	private JTextField 	textField_income;
-	private JLabel 		lblCost;
-	private JTextField 	textField_costs;
-	private JLabel 		lblTax;
-	private JTextField 	textField_tax;
-	private JLabel 		lblPercentage;
-	private JLabel 		lblOptions;
+						panel_5,	panel_6, 	panel_7, 	panel_8, 	panel_9;
+	private JLabel 		lblIncomeStatement,	lblSales, lblIncome, lblCost, lblTax, 
+						lblPercentage, lblOptions;
+	private JTextField 	textField_sales, textField_income, textField_costs, 
+						textField_tax;
 	private JButton 	btnPrint;
-	private JSplitPane	accountsTab;
+	private JSplitPane	communicationsTab;
+	private JPanel		communicationsOptionPanel;
+	private JList 		customerList;
+	private JScrollPane customersScrollPane;
+	private JLabel lblIncomeStatement_1;
+	private JPanel panel_10;
 	
 	public TreasurerUI(String frameTitle, String userName) {
 		setTitle(frameTitle);
@@ -66,7 +63,7 @@ public class TreasurerUI extends JFrame{
 	public JTabbedPane tabbedPane() {
 		tabbedPane = new JTabbedPane();
 		
-		tabbedPane.addTab("Accounts", null, accountsTab(),	null);
+		tabbedPane.addTab("Communication", null, communicationsTab(),	null);
 		
 		tabbedPane.addTab("Management",	null, managementTab(),	null);
 		
@@ -78,48 +75,79 @@ public class TreasurerUI extends JFrame{
 		
 		return tabbedPane;
 	}
+
+	private void set1By3MinimumSizeRatioForPanel(JPanel panel) {
+		int width = frameWidth / 3;
+		int height = frameHeight;
+		panel.setMinimumSize(new Dimension(width, height));
+	}
 	
-	public JSplitPane accountsTab() {
-		accountsTab = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-		accountsTab.setDividerLocation(frameWidth / 3);
+	public JSplitPane communicationsTab() {
+		communicationsTab = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		communicationsTab.setDividerLocation(frameWidth / 3);
 		
-		return accountsTab;
+		customerList = 			new JList<JLabel>();
+		customersScrollPane = 	new JScrollPane(customerList);
+		
+		customerList.add(new JLabel("Hello"));
+		
+		int width = 2 * frameWidth / 3;
+		int height = frameHeight;
+		customersScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		customersScrollPane.setMinimumSize(new Dimension(width, height));
+		
+		communicationsTab.add(communicationsOptionPanel());
+		communicationsTab.add(customersScrollPane);
+		
+		panel_10 = new JPanel();
+		customersScrollPane.setColumnHeaderView(panel_10);
+		
+		return communicationsTab;
+	}
+	
+	public JPanel communicationsOptionPanel() {
+		communicationsOptionPanel = new JPanel();
+		
+		set1By3MinimumSizeRatioForPanel(communicationsOptionPanel);
+		
+		return communicationsOptionPanel;
 	}
 	
 	public JSplitPane managementTab() {
 		managementTab = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		managementTab.setDividerLocation(frameWidth / 3);
 		
-		accountsTextArea =		new JTextArea();
-		accountsScrollPane =	new JScrollPane(accountsTextArea);
+		incomeStatementTextArea =		new JTextArea();
+		incomeStatementScrollPane =		new JScrollPane(incomeStatementTextArea);
 		
 		int width = 2 * frameWidth / 3;
 		int height = frameHeight;
-		accountsScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		accountsScrollPane.setMinimumSize(new Dimension(width, height));
+		incomeStatementScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		incomeStatementScrollPane.setMinimumSize(new Dimension(width, height));
 		
-		managementTab.add(optionsPanel());
-		managementTab.add(accountsScrollPane);
+		managementTab.add(managementOptionsPanel());
+		managementTab.add(incomeStatementScrollPane);
+		
+		lblIncomeStatement_1 = new JLabel(" Income Statement");
+		incomeStatementScrollPane.setColumnHeaderView(lblIncomeStatement_1);
 		
 		return managementTab;
 	}
 	
-	public JPanel optionsPanel() {
-		int gridSize = 16;
-		JPanel optionsPanel = new JPanel(new GridLayout(gridSize,1));
-		int width = frameWidth / 3;
-		int height = frameHeight;
-		optionsPanel.setMinimumSize(new Dimension(width, height));
+	public JPanel managementOptionsPanel() { // refactor this when you get the chance
+		int gridSize = 15;
+		managementOptionsPanel = new JPanel(new GridLayout(gridSize,1));
+		set1By3MinimumSizeRatioForPanel(managementOptionsPanel);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		optionsPanel.add(panel);
+		managementOptionsPanel.add(panel);
 		
 		lblIncomeStatement = new JLabel("Income Statement");
 		panel.add(lblIncomeStatement);
 		
 		panel_1 = new JPanel();
-		optionsPanel.add(panel_1);
+		managementOptionsPanel.add(panel_1);
 		
 		lblIncome = new JLabel("income $");
 		panel_1.add(lblIncome);
@@ -129,7 +157,7 @@ public class TreasurerUI extends JFrame{
 		textField_income.setColumns(5);
 		
 		panel_2 = new JPanel();
-		optionsPanel.add(panel_2);
+		managementOptionsPanel.add(panel_2);
 		
 		lblSales = new JLabel("sales $");
 		panel_2.add(lblSales);
@@ -139,7 +167,7 @@ public class TreasurerUI extends JFrame{
 		textField_sales.setColumns(6);
 		
 		panel_3 = new JPanel();
-		optionsPanel.add(panel_3);
+		managementOptionsPanel.add(panel_3);
 		
 		lblCost = new JLabel("costs $");
 		panel_3.add(lblCost);
@@ -149,7 +177,7 @@ public class TreasurerUI extends JFrame{
 		textField_costs.setColumns(6);
 		
 		panel_4 = new JPanel();
-		optionsPanel.add(panel_4);
+		managementOptionsPanel.add(panel_4);
 		
 		lblTax = new JLabel("tax ");
 		panel_4.add(lblTax);
@@ -162,48 +190,28 @@ public class TreasurerUI extends JFrame{
 		panel_4.add(lblPercentage);
 		
 		panel_5 = new JPanel();
-		optionsPanel.add(panel_5);
+		managementOptionsPanel.add(panel_5);
 		
 		panel_6 = new JPanel();
-		optionsPanel.add(panel_6);
+		managementOptionsPanel.add(panel_6);
 		
 		panel_7 = new JPanel();
-		optionsPanel.add(panel_7);
+		managementOptionsPanel.add(panel_7);
 		
 		panel_8 = new JPanel();
 		panel_8.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		optionsPanel.add(panel_8);
+		managementOptionsPanel.add(panel_8);
 		
 		lblOptions = new JLabel("Options");
 		panel_8.add(lblOptions);
 		
 		panel_9 = new JPanel();
-		optionsPanel.add(panel_9);
+		managementOptionsPanel.add(panel_9);
 		
 		btnPrint = new JButton("print");
 		panel_9.add(btnPrint);
 		
-		panel_10 = new JPanel();
-		optionsPanel.add(panel_10);
-		
-		panel_11 = new JPanel();
-		optionsPanel.add(panel_11);
-		
-		panel_12 = new JPanel();
-		optionsPanel.add(panel_12);
-		
-		panel_13 = new JPanel();
-		optionsPanel.add(panel_13);
-		
-		panel_14 = new JPanel();
-		optionsPanel.add(panel_14);
-		
-		panel_15 = new JPanel();
-		optionsPanel.add(panel_15);
-		
-		
-		
-		return optionsPanel;
+		return managementOptionsPanel;
 	}
 	
 	public JPanel introPanel() {
