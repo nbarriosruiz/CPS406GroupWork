@@ -30,9 +30,10 @@ public class TreasurerUI extends JFrame{
 	private JScrollPane	incomeStatementScrollPane;
 	private JTextArea	incomeStatementTextArea;
 	private JPanel 		panel, 		panel_1, 	panel_2, 	panel_3, 	panel_4, 
-						panel_5,	panel_6, 	panel_7, 	panel_8, 	panel_9;
-	private JLabel 		lblIncomeStatement,	lblSales, lblIncome, lblCost, lblTax, 
-						lblPercentage, lblOptions;
+						panel_5,	panel_6, 	panel_7, 	panel_8, 	panel_9,
+						panel_10;
+	private JLabel 		lblIncomeStatement, lblIncomeStatement_1, lblSales, 
+						lblIncome, lblCost, lblTax, lblPercentage, lblOptions;
 	private JTextField 	textField_sales, textField_income, textField_costs, 
 						textField_tax;
 	private JButton 	btnPrint;
@@ -40,8 +41,6 @@ public class TreasurerUI extends JFrame{
 	private JPanel		communicationsOptionPanel;
 	private JList 		customerList;
 	private JScrollPane customersScrollPane;
-	private JLabel lblIncomeStatement_1;
-	private JPanel panel_10;
 	
 	public TreasurerUI(String frameTitle, String userName) {
 		setTitle(frameTitle);
@@ -128,7 +127,7 @@ public class TreasurerUI extends JFrame{
 		managementTab.add(managementOptionsPanel());
 		managementTab.add(incomeStatementScrollPane);
 		
-		lblIncomeStatement_1 = new JLabel(" Income Statement");
+		lblIncomeStatement_1 = new JLabel(" Income Statement:");
 		incomeStatementScrollPane.setColumnHeaderView(lblIncomeStatement_1);
 		
 		return managementTab;
