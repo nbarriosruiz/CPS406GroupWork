@@ -21,7 +21,7 @@ public class TreasurerUI extends JFrame{
 	
 	private String			userName;
 	
-	private ActionListener 	btnListener;
+	private ActionListener 	listener;
 	
 	private JMenuBar 		accountsMenuBar;
 	private JMenu			fileMenu;
@@ -147,8 +147,8 @@ public class TreasurerUI extends JFrame{
 		inputChatScrollPane = 		new JScrollPane(inputChatTextArea);
 		btnSendPanel =				new JPanel(new BorderLayout());
 		btnSend =					new JButton("send");
-		btnListener = 				new ButtonListener("btnSend");
-		btnSend.addActionListener(btnListener);
+		listener = 				new ButtonListener("btnSend");
+		btnSend.addActionListener(listener);
 		
 		inputChatScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
@@ -194,11 +194,11 @@ public class TreasurerUI extends JFrame{
 		incomeStatementOptionsPanel.setBorder(new TitledBorder(null, "Options", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		btnOutputIncomeStatement = 	new JButton("output income statement");
-		btnListener = 				new ButtonListener("btnOutputIncomeStatement");
-		btnOutputIncomeStatement.addActionListener(btnListener);
+		listener = 				new ButtonListener("btnOutputIncomeStatement");
+		btnOutputIncomeStatement.addActionListener(listener);
 		btnSave =					new JButton("save");
-		btnListener = 				new ButtonListener("btnSave");
-		btnSave.addActionListener(btnListener);
+		listener = 				new ButtonListener("btnSave");
+		btnSave.addActionListener(listener);
 		incomeStatementOptionsPanel.add(btnOutputIncomeStatement);
 		incomeStatementOptionsPanel.add(btnSave);
 		
@@ -326,5 +326,21 @@ public class TreasurerUI extends JFrame{
 		else if (btnDescription.equals("btnSend")) {
 			System.out.println("btnSend");
 		}
+	}
+	
+	private void outputIncomeStatement() {
+		int	expenses =  Integer.parseInt(textField_expenses.getText());
+		int total_liabilities = ;
+		incomeStatementTextArea.setText("LAFItness\nBalance Sheet\nDate\n\nAssets:\n"
+				+"	revenue			$ " + textField_revenue.getText() + "\n"
+				+"				------\n"
+				+"	total assets		$ " + textField_revenue.getText() + "\n\n"
+				+"Liabilities:\n"
+				+"	expenses		$ " + textField_expenses.getText() + "\n"
+				+"	accounts payable	$ " + textField_accountsPayable.getText() + "\n"
+				+"	tax			$ " + textField_tax.getText() + "\n"
+				+"				------\n"
+				+"	total liabilities	$ " + textF + "\n\n"
+				+"Net Income:			$ 1000\n");
 	}
 }
