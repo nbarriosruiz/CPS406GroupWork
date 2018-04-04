@@ -34,7 +34,6 @@ public class TreasurerUI extends JFrame{
 	private JSplitPane		incomeAndExpensesTab;
 	private JPanel			incomeAndExpensesOptionsPanel;
 	private JScrollPane		incomeStatementScrollPane;
-	private JPanel			incomeStatementScrollPanePanel;
 	private JTextArea		incomeStatementTextArea;
 	private JPanel 			incomeStatementInputPanel, incomeStatementOptionsPanel;
 	private JLabel 			lblIncomeStatement, lblRevenue, lblExpenses, lblAccountsPayable, lblTax;
@@ -90,22 +89,11 @@ public class TreasurerUI extends JFrame{
 		
 		return tabbedPane;
 	}
-
-	private void set1By3MinimumSizeRatioForPanel(JPanel aPanel, int panelWidth, int panelHeight) {
-		int width = panelWidth / 3;
-		int height = panelHeight;
-		aPanel.setMinimumSize(new Dimension(width, height));
-	}
-	
-	private void set2By3MinimumSizeRatioForPanel(JPanel aPanel, int panelWidth, int panelHeight) {
-		int width = 2 * panelWidth / 3;
-		int height = panelHeight;
-		aPanel.setMinimumSize(new Dimension(width, height));
-	}
 	
 	private JSplitPane accountsTab() {
 		accountsTab = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-		accountsTab.setDividerLocation(frameHeight / 3);
+		accountsTab.setDividerLocation(frameWidth / 3);
+		accountsTab.setEnabled(false);
 		
 		customerList = 				new JList<JLabel>();
 		customerScrollPane = 		new JScrollPane(customerList);
@@ -118,7 +106,6 @@ public class TreasurerUI extends JFrame{
 		customerScrollPane.setColumnHeaderView(customerSortingPanel);
 		
 		customerScrollPanePanel.add(customerScrollPane, BorderLayout.CENTER);
-		set1By3MinimumSizeRatioForPanel(customerScrollPanePanel, frameWidth, frameHeight);
 		
 		accountsTab.add(customerScrollPanePanel);
 		accountsTab.add(accountsChatSplitPanePanel());
@@ -126,21 +113,15 @@ public class TreasurerUI extends JFrame{
 		return accountsTab;
 	}
 	
-	private JPanel accountsChatSplitPanePanel() {
-		accountsChatSplitPanePanel = 	new JPanel(new BorderLayout());
+	private JSplitPane accountsChatSplitPanePanel() {
 		accountsChatSplitPane = 		new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		accountsChatSplitPane.setDividerLocation(2 * frameHeight / 3);
-		
-		set2By3MinimumSizeRatioForPanel(accountsChatSplitPanePanel, frameWidth, frameHeight);
-
-		int width = 	(int) accountsChatSplitPanePanel.getMinimumSize().getWidth();
-		int height = 	(int) accountsChatSplitPanePanel.getMinimumSize().getHeight();
+		accountsChatSplitPane.setEnabled(false);
 		
 		accountsChatSplitPane.add(previousChatPanel());
-		accountsChatSplitPane.add(inputChatSplitPane(width, frameHeight / 3));
-		accountsChatSplitPanePanel.add(accountsChatSplitPane, BorderLayout.CENTER);
+		accountsChatSplitPane.add(inputChatSplitPane(2 * frameWidth / 3));
 		
-		return accountsChatSplitPanePanel;
+		return accountsChatSplitPane;
 	}
 	
 	private JPanel previousChatPanel() {
@@ -156,9 +137,10 @@ public class TreasurerUI extends JFrame{
 		return previousChatPanel;
 	}
 	
-	private JSplitPane inputChatSplitPane(int parentWidth, int parentHeight) {
+	private JSplitPane inputChatSplitPane(int parentWidth) {
 		inputChatSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		inputChatSplitPane.setDividerLocation(2 * parentWidth / 3);
+		inputChatSplitPane.setEnabled(false);
 		
 		inputChatTextAreaPanel = 	new JPanel(new BorderLayout());
 		inputChatTextArea = 		new JTextArea();
@@ -169,8 +151,6 @@ public class TreasurerUI extends JFrame{
 		btnSend.addActionListener(btnListener);
 		
 		inputChatScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		set2By3MinimumSizeRatioForPanel(inputChatTextAreaPanel, parentWidth, parentHeight);
-		set1By3MinimumSizeRatioForPanel(btnSendPanel, parentWidth, parentHeight);
 
 		inputChatTextAreaPanel.add(inputChatScrollPane);
 		btnSendPanel.add(btnSend, BorderLayout.CENTER);		
@@ -184,27 +164,24 @@ public class TreasurerUI extends JFrame{
 	private JSplitPane incomeAndExpensesTab() {
 		incomeAndExpensesTab = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		incomeAndExpensesTab.setDividerLocation(frameWidth / 3);
+		incomeAndExpensesTab.setEnabled(false);
 		
 		incomeStatementTextArea =			new JTextArea();
 		incomeStatementTextArea.setFont(new Font("Consolas", Font.PLAIN, 12));
 		incomeStatementScrollPane =			new JScrollPane(incomeStatementTextArea);
 		lblIncomeStatement = 				new JLabel(" Income Statement:");
-		incomeStatementScrollPanePanel = 	new JPanel(new BorderLayout());
 		
 		incomeStatementScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		incomeStatementScrollPane.setColumnHeaderView(lblIncomeStatement);
-		incomeStatementScrollPanePanel.add(incomeStatementScrollPane, BorderLayout.CENTER);
-		set2By3MinimumSizeRatioForPanel(incomeStatementScrollPanePanel, frameWidth, frameHeight);
 		
 		incomeAndExpensesTab.add(incomeAndExpensesOptionsPanel());
-		incomeAndExpensesTab.add(incomeStatementScrollPanePanel);
+		incomeAndExpensesTab.add(incomeStatementScrollPane);
 		
 		return incomeAndExpensesTab;
 	}
 	
 	private JPanel incomeAndExpensesOptionsPanel() {
 		incomeAndExpensesOptionsPanel = new JPanel(new GridLayout(2,1));
-		set1By3MinimumSizeRatioForPanel(incomeAndExpensesOptionsPanel, frameWidth, frameHeight);
 		
 		incomeAndExpensesOptionsPanel.add(incomeStatementInputPanel());
 		incomeAndExpensesOptionsPanel.add(incomeStatementOptionsPanel());
