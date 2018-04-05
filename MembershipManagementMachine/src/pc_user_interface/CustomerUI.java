@@ -109,6 +109,7 @@ public class CustomerUI extends JFrame{
         {
             if(event.getSource() == btnCreditBack)
             {
+                //Action done if debit button is clicked after clicking credit
                 validate();
                 repaint();
                 pDebit();
@@ -117,6 +118,7 @@ public class CustomerUI extends JFrame{
             }
             if(event.getSource() == btnDebitBack)
             {
+                //Action done if credit button is clicked after clicking debit
                 validate();
                 repaint();
                 pCredit();
