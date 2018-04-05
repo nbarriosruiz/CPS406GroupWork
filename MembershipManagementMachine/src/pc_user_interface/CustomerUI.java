@@ -42,11 +42,14 @@ public class CustomerUI extends JFrame{
 
     private ActionListener paymentListener;
     private ActionListener confirmListener;
+    private ActionListener backListener;
 
     private JButton btnCredit;
     private JButton btnDebit;
     private JButton btnConfirm1;
     private JButton btnConfirm2;
+    private JButton btnCreditBack;
+    private JButton btnDebitBack;
 
     private JPanel menuPanel;
         
@@ -63,6 +66,7 @@ public class CustomerUI extends JFrame{
     {
         public void actionPerformed(ActionEvent event)
         {
+            // Action done if credit button is clicked
             if(event.getSource() == btnCredit)
             {
                 validate();
@@ -71,6 +75,7 @@ public class CustomerUI extends JFrame{
                 validate();
                 repaint();  
             }
+            // Action done if debit button is clicked
             if(event.getSource() == btnDebit)
             {
                 validate();
@@ -87,11 +92,35 @@ public class CustomerUI extends JFrame{
         {
             if(event.getSource() == btnConfirm1)
             {
+                // Action done if confirm button is clicked after clicking credit
                 getInfoPayC();
             }
             if(event.getSource() == btnConfirm2)
             {
+                // Action done if confirm button is clicked after clicking debit
                 getInfoPayD();
+            }
+        }
+    }
+    class BackListener implements ActionListener
+    {
+        public void actionPerformed(ActionEvent event)
+        {
+            if(event.getSource() == btnCreditBack)
+            {
+                validate();
+                repaint();
+                pDebit();
+                validate();
+                repaint();
+            }
+            if(event.getSource() == btnDebitBack)
+            {
+                validate();
+                repaint();
+                pCredit();
+                validate();
+                repaint(); 
             }
         }
     }
@@ -112,6 +141,7 @@ public class CustomerUI extends JFrame{
     }
 
     public void createPayMenu(){
+        //creates the credit and debit buttons
         pPayment = new JPanel(new GridLayout(1,2));
             paymentListener = new PaymentListener();
             btnCredit = new JButton("Credit");
@@ -124,7 +154,9 @@ public class CustomerUI extends JFrame{
     }
 
     public void pCredit(){
+        //creates the credit menu once credit is clicked
         pPayment.removeAll();
+        menuPanel.removeAll();
             JPanel pCreditConfrim = new JPanel(new BorderLayout());
                 pCredit = new JPanel(new GridLayout(6,2));
                     JPanel p1 = new JPanel();
@@ -180,12 +212,18 @@ public class CustomerUI extends JFrame{
                     pCredit.add(p12);
                     pCredit.add(p6);
 
-                JPanel pButton = new JPanel();
+                JPanel pButton = new JPanel(new GridLayout(1,2));
                     btnConfirm1 = new JButton("Confirm");
                     pButton.add(btnConfirm1);
                     confirmListener = new ConfirmListener();
                     btnConfirm1.addActionListener(confirmListener);
 
+                    btnCreditBack = new JButton("Debit");
+                    pButton.add(btnCreditBack);
+                    backListener = new BackListener();
+                    btnCreditBack.addActionListener(backListener);
+
+            pCreditConfrim.setBorder(BorderFactory.createTitledBorder("Information:"));
             pCreditConfrim.add(pCredit, BorderLayout.NORTH);
             pCreditConfrim.add(pButton, BorderLayout.SOUTH);
 
@@ -198,8 +236,10 @@ public class CustomerUI extends JFrame{
         menuPanel.add(taNotification, BorderLayout.CENTER);
 
     }
-    public void pDebit(){
+    public void pDebit(){       
+        //creates the debit menu once debit is clicked
         pPayment.removeAll();
+        menuPanel.removeAll();
             JPanel pDebitConfrim = new JPanel(new BorderLayout());
                 pDebit = new JPanel(new GridLayout(6,2));
                     JPanel p1 = new JPanel();
@@ -255,12 +295,18 @@ public class CustomerUI extends JFrame{
                     pDebit.add(p12);
                     pDebit.add(p6);
 
-                JPanel pButton = new JPanel();
+                JPanel pButton = new JPanel(new GridLayout(1,2));
                     btnConfirm2 = new JButton("Confirm");
                     pButton.add(btnConfirm2);
                     confirmListener = new ConfirmListener();
                     btnConfirm2.addActionListener(confirmListener);
 
+                    btnDebitBack = new JButton("Credit");
+                    pButton.add(btnDebitBack);
+                    backListener = new BackListener();
+                    btnDebitBack.addActionListener(backListener);
+           
+            pDebitConfrim.setBorder(BorderFactory.createTitledBorder("Information:"));        
             pDebitConfrim.add(pDebit, BorderLayout.NORTH);
             pDebitConfrim.add(pButton, BorderLayout.SOUTH);
 
@@ -275,6 +321,7 @@ public class CustomerUI extends JFrame{
     }
 
     public void getInfoPayD(){
+        // gets info from the debit menu
         firstNameGotten = tfFirstName.getText();
         lastNameGotten = tfLastName.getText();
         phoneNumberGotten = tfPhoneNumber.getText();
@@ -291,6 +338,7 @@ public class CustomerUI extends JFrame{
     }
 
     public void getInfoPayC(){
+        // gets info from the credit menu
         firstNameGotten = tfFirstName.getText();
         lastNameGotten = tfLastName.getText();
         phoneNumberGotten = tfPhoneNumber.getText();
