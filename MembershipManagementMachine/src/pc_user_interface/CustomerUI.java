@@ -4,7 +4,6 @@ package pc_user_interface;
  *First Name: Nicolas 
  *Student ID: 500773454
  */
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -47,12 +46,12 @@ public class CustomerUI extends JFrame{
     private JTextArea taNotification;
 
     private ActionListener paymentListener;
-    private ActionListener creditConfirmListener;
-    private ActionListener debitConfirmListener;
+    private ActionListener confirmListener;
 
     private JButton btnCredit;
     private JButton btnDebit;
-    private JButton btnConfirm;
+    private JButton btnConfirm1;
+    private JButton btnConfirm2;
 
     private JPanel menuPanel;
         
@@ -87,18 +86,18 @@ public class CustomerUI extends JFrame{
             }
         }
     }
-    class CreditConfirmListener implements ActionListener
+    class ConfirmListener implements ActionListener
     {
-        public void actionPerformed(ActionEvent event)
+        public void actionPerformed(ActionEvent event) 
         {
-            getInfoPayC();
-        }
-    }
-    class DebitConfirmListener implements ActionListener
-    {
-        public void actionPerformed(ActionEvent event)
-        {
-            getInfoPayD();
+            if(event.getSource() == btnConfirm1)
+            {
+                getInfoPayC();
+            }
+            if(event.getSource() == btnConfirm2)
+            {
+                getInfoPayD();
+            }
         }
     }
 
@@ -175,10 +174,10 @@ public class CustomerUI extends JFrame{
                     pCredit.add(p6);
 
                 JPanel pButton = new JPanel();
-                    btnConfirm = new JButton("Confirm");
-                    pButton.add(btnConfirm);
-                    creditConfirmListener = new CreditConfirmListener();
-                    btnConfirm.addActionListener(creditConfirmListener);
+                    btnConfirm1 = new JButton("Confirm");
+                    pButton.add(btnConfirm1);
+                    confirmListener = new ConfirmListener();
+                    btnConfirm1.addActionListener(confirmListener);
 
             pCreditConfrim.add(pCredit, BorderLayout.NORTH);
             pCreditConfrim.add(pButton, BorderLayout.SOUTH);
@@ -248,10 +247,10 @@ public class CustomerUI extends JFrame{
                     pDebit.add(p6);
 
                 JPanel pButton = new JPanel();
-                    btnConfirm = new JButton("Confirm");
-                    pButton.add(btnConfirm);
-                    debitConfirmListener = new DebitConfirmListener();
-                    btnConfirm.addActionListener(debitConfirmListener);
+                    btnConfirm2 = new JButton("Confirm");
+                    pButton.add(btnConfirm2);
+                    confirmListener = new ConfirmListener();
+                    btnConfirm2.addActionListener(confirmListener);
 
             pDebitConfrim.add(pDebit, BorderLayout.NORTH);
             pDebitConfrim.add(pButton, BorderLayout.SOUTH);
