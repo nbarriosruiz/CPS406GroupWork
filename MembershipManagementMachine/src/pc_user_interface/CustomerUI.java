@@ -4,17 +4,12 @@ package pc_user_interface;
  *First Name: Nicolas 
  *Student ID: 500773454
  */
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.border.CompoundBorder;
 
 public class CustomerUI extends JFrame{
 
@@ -116,6 +111,18 @@ public class CustomerUI extends JFrame{
 
     }
 
+    public void createPayMenu(){
+        pPayment = new JPanel(new GridLayout(1,2));
+            paymentListener = new PaymentListener();
+            btnCredit = new JButton("Credit");
+                btnCredit.addActionListener(paymentListener);
+                pPayment.add(btnCredit);
+            btnDebit = new JButton("Debit");
+                btnDebit.addActionListener(paymentListener);
+                pPayment.add(btnDebit);
+            add(pPayment);
+    }
+
     public void pCredit(){
         pPayment.removeAll();
             JPanel pCreditConfrim = new JPanel(new BorderLayout());
@@ -184,6 +191,8 @@ public class CustomerUI extends JFrame{
 
             taNotification = new JTextArea();
                 taNotification.setEditable(false);
+                taNotification.setBorder(new CompoundBorder(BorderFactory.createTitledBorder("Notifications:"), taNotification.getBorder()));
+
 
         menuPanel.add(pCreditConfrim, BorderLayout.NORTH);
         menuPanel.add(taNotification, BorderLayout.CENTER);
@@ -257,22 +266,12 @@ public class CustomerUI extends JFrame{
 
             taNotification = new JTextArea();
                 taNotification.setEditable(false);
+                taNotification.setBorder(new CompoundBorder(BorderFactory.createTitledBorder("Notifications:"), taNotification.getBorder()));
+
 
         menuPanel.add(pDebitConfrim, BorderLayout.NORTH);
         menuPanel.add(taNotification, BorderLayout.CENTER);
 
-    }
-
-    public void createPayMenu(){
-        pPayment = new JPanel(new GridLayout(1,2));
-            paymentListener = new PaymentListener();
-            btnCredit = new JButton("Credit");
-                btnCredit.addActionListener(paymentListener);
-                pPayment.add(btnCredit);
-            btnDebit = new JButton("Debit");
-                btnDebit.addActionListener(paymentListener);
-                pPayment.add(btnDebit);
-            add(pPayment);
     }
 
     public void getInfoPayD(){
@@ -284,10 +283,10 @@ public class CustomerUI extends JFrame{
         verificationCodeGotten = tfVerificationCode.getText();
 
         if(lastNameGotten.isEmpty() || firstNameGotten.isEmpty() || dcNumberGotten.isEmpty() || phoneNumberGotten.isEmpty() || addressGotten.isEmpty() || verificationCodeGotten.isEmpty()){
-            taNotification.setText("Error missing information");
+            taNotification.setText("    Error missing information");
         }
         else{
-            taNotification.setText("Payment Successful");
+            taNotification.setText("    Payment Successful");
         }
     }
 
@@ -300,10 +299,10 @@ public class CustomerUI extends JFrame{
         securityCodeGotten = tfSecurityCode.getText();
 
         if(lastNameGotten.isEmpty() || firstNameGotten.isEmpty() || ccNumberGotten.isEmpty() || phoneNumberGotten.isEmpty() || addressGotten.isEmpty() || securityCodeGotten.isEmpty()){
-            taNotification.setText("Error missing information");
+            taNotification.setText("    Error missing information");
         }
         else{
-            taNotification.setText("Payment Successful");
+            taNotification.setText("    Payment Successful");
         }
     }
 }
