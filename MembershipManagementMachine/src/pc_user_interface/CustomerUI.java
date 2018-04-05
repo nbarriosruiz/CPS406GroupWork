@@ -61,6 +61,7 @@ public class CustomerUI extends JFrame{
     private String securityCodeGotten;
     private String dcNumberGotten;
     private String verificationCodeGotten;
+    private String userName;
 
     class PaymentListener implements ActionListener
     {
@@ -125,17 +126,17 @@ public class CustomerUI extends JFrame{
         }
     }
 
-    public CustomerUI(){
+    public CustomerUI(String frameTitle){
+        setTitle(frameTitle);
+        setVisible(true);
+        setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        setMinimumSize(new Dimension(410, 400));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         menuPanel = new JPanel(new BorderLayout());
         menuPanel.setPreferredSize(new Dimension(410, 400));
         add(menuPanel);
 
-        setTitle("Welcome");
-        setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        setMinimumSize(new Dimension(410, 400));
-		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
         createPayMenu();
 
     }
