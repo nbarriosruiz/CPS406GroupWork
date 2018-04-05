@@ -126,8 +126,10 @@ public class CustomerUI extends JFrame{
         }
     }
 
-    public CustomerUI(String frameTitle){
+    public CustomerUI(String userName){
+        String frameTitle = userName + ", Welcome to LA Fitness ";
         setTitle(frameTitle);
+        this.userName = userName;
         setVisible(true);
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setMinimumSize(new Dimension(410, 400));
