@@ -41,10 +41,14 @@ public class LoginInterface
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				Customer c = null;
 				String username = textField.getText();
 				String password = new String(textField2.getPassword());
-				Customer c = work.decrypt(username + ".ser");
-				System.out.println(c.getCustomerPassword());
+				c = work.decrypt(username + ".ser");
+				if(c != null)
+				{
+					System.out.println(c.getCustomerPassword());
+				}
 			}
 		});
 		page.add(login);
