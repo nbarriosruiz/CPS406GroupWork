@@ -1,17 +1,19 @@
+package jacob_files;
 import javax.swing.*;
 import java.awt.event.*;
 public class LoginInterface 
 {
 	JTextField textField;
 	JPasswordField textField2;
+	LoginWork work;
 	public LoginInterface()
 	{
 		JFrame screen = new JFrame();
 		JPanel page = new JPanel();
-		LoginWork work = new LoginWork();
+		work = new LoginWork();
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		screen.setTitle("Login");
-		screen.setSize(260, 130);
+		screen.setSize(260, 120);
 		screen.setResizable(false);
 		screen.setLocationRelativeTo(null);
 		page.setVisible(true);
@@ -41,7 +43,8 @@ public class LoginInterface
 			{
 				String username = textField.getText();
 				String password = new String(textField2.getPassword());
-				
+				Customer c = work.decrypt(username + ".ser");
+				System.out.println(c.getCustomerPassword());
 			}
 		});
 		page.add(login);

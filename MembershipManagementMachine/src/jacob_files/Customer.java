@@ -1,4 +1,4 @@
-package users;
+package jacob_files;
 
 public class Customer implements java.io.Serializable {
 
