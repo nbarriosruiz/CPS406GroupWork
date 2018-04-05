@@ -20,102 +20,82 @@ import javax.swing.border.TitledBorder;
 
 public class CustomerUI extends JFrame{
 
-    private static final int FRAME_WIDTH = 500;
-    private static final int FRAME_HEIGHT = 500;
-    
-    private JFrame frame;
-    private JPanel customerPanel;
+    private static final int FRAME_WIDTH = 300;
+    private static final int FRAME_HEIGHT = 400;
 
-    private JButton confirm;
-    private JButton confirm2;
+    private JPanel pPayment;
+    private JPanel pCredit;
+    private JPanel pDebit;
 
-    private ActionListener payCreditListener;
-    private ActionListener payDebitListener;
-    private ActionListener confirmListener1;
-    private ActionListener confirmListener2;
+    private JLabel lblFirstName;
+    private JLabel lblLastName;
+    private JLabel lblPhoneNumber;
+    private JLabel lblAddress;
+    private JLabel lblCreditNumber;
+    private JLabel lblSecurityCode;
+    private JLabel lblDebitNumber;
+    private JLabel lblVerificationCode;
 
-    private JMenuBar menuBar;
-    private JMenu payMenu;
-    private JMenuItem payMenuItemC;
-    private JMenuItem payMenuItemD;
+    private JTextField tfFirstName;
+    private JTextField tfLastName;
+    private JTextField tfPhoneNumber;
+    private JTextField tfAddress;
+    private JTextField tfCreditNumber;
+    private JTextField tfSecurityCode;
+    private JTextField tfDebitNumber;
+    private JTextField tfVerificationCode;
+
+    private JTextArea taNotification;
+
+    private ActionListener paymentListener;
+    private ActionListener creditConfirmListener;
+    private ActionListener debitConfirmListener;
+
+    private JButton btnCredit;
+    private JButton btnDebit;
+    private JButton btnConfirm;
 
     private JPanel menuPanel;
-    private JPanel descPanel;
-    private JPanel payPanelC;
-    private JPanel payPanelD;
-
-    private JLabel welcomeLabel;
-    private JLabel ccNumber;
-    private JLabel dcNumber;
-    private JLabel firstName1;
-    private JLabel lastName1;
-    private JLabel firstName2;
-    private JLabel lastName2;
-    private JLabel month;
-    private JLabel day;
-    private JLabel time;
-    private JLabel month2;
-    private JLabel day2;
-    private JLabel time2;
-    
-    private JTextField ccTextField;
-    private JTextField fnTextField;
-    private JTextField lnTextField;
-    private JTextField dcTextField;
-    private JTextField fnTextField2;
-    private JTextField lnTextField2;
-    private JTextField monthField;
-    private JTextField dayField;
-    private JTextField timeField;
-    private JTextField monthField2;
-    private JTextField dayField2;
-    private JTextField timeField2;
-
-    private JTextArea confirmation1;
-    private JTextArea confirmation2;
-
-    private String confirmDate1;
-    private String confirmDate2;
+        
     private String lastNameGotten;
     private String firstNameGotten;
+    private String addressGotten;
+    private String phoneNumberGotten;
     private String ccNumberGotten;
-    private String dayGotten;
-    private String monthGotten;
-    private String timeGotten;
+    private String securityCodeGotten;
+    private String dcNumberGotten;
+    private String verificationCodeGotten;
 
-    class PayCreditListener implements ActionListener
+    class PaymentListener implements ActionListener
     {
         public void actionPerformed(ActionEvent event)
         {
-        validate();
-        repaint();
-        createPayPanelC();
-        validate();
-        repaint();
+            if(event.getSource() == btnCredit)
+            {
+                validate();
+                repaint();
+                pCredit();
+                validate();
+                repaint();  
+            }
+            if(event.getSource() == btnDebit)
+            {
+                validate();
+                repaint();
+                pDebit();
+                validate();
+                repaint();
+            }
         }
     }
-
-    class PayDebitListener implements ActionListener
-    {
-        public void actionPerformed(ActionEvent event)
-        {
-        validate();
-        repaint();
-        createPayPanelD();
-        validate();
-        repaint();
-        }
-    }
-
-    class ConfirmListener1 implements ActionListener
+    class CreditConfirmListener implements ActionListener
     {
         public void actionPerformed(ActionEvent event)
         {
             getInfoPayC();
         }
     }
-
-    class ConfirmListener2 implements ActionListener
+    class DebitConfirmListener implements ActionListener
     {
         public void actionPerformed(ActionEvent event)
         {
@@ -123,176 +103,209 @@ public class CustomerUI extends JFrame{
         }
     }
 
-    public CustomerUI(String frameTitle){
-        descPanel = new JPanel(new BorderLayout());
+    public CustomerUI(){
         menuPanel = new JPanel(new BorderLayout());
         menuPanel.setPreferredSize(new Dimension(410, 400));
         add(menuPanel);
-        welcomeLabel = new JLabel("Welcome");
 
-        setTitle(frameTitle);
+        setTitle("Welcome");
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setMinimumSize(new Dimension(410, 400));
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        createMenuBar();
+        createPayMenu();
 
     }
 
-    public void createMenuBar(){
-        menuBar = new JMenuBar();
-        createPayMenu();
-        menuPanel.add(menuBar, BorderLayout.NORTH);
+    public void pCredit(){
+        pPayment.removeAll();
+            JPanel pCreditConfrim = new JPanel(new BorderLayout());
+                pCredit = new JPanel(new GridLayout(6,2));
+                    JPanel p1 = new JPanel();
+                    JPanel p2 = new JPanel();
+                    JPanel p3 = new JPanel();
+                    JPanel p4 = new JPanel();
+                    JPanel p5 = new JPanel();
+                    JPanel p6 = new JPanel();
+
+                    JPanel p7 = new JPanel();
+                    JPanel p8 = new JPanel();
+                    JPanel p9 = new JPanel();
+                    JPanel p10 = new JPanel();
+                    JPanel p11 = new JPanel();
+                    JPanel p12 = new JPanel();
+
+                    lblFirstName = new JLabel("First Name:");
+                        p7.add(lblFirstName);
+                    lblLastName = new JLabel("Last Name:");
+                        p8.add(lblLastName);
+                    lblPhoneNumber = new JLabel("Phone Number:");
+                        p9.add(lblPhoneNumber);
+                    lblAddress = new JLabel("Address:");
+                        p10.add(lblAddress);
+                    lblCreditNumber = new JLabel("Credit Card Number:");
+                        p11.add(lblCreditNumber);
+                    lblSecurityCode = new JLabel("Security Code:");
+                        p12.add(lblSecurityCode);
+
+                    tfFirstName = new JTextField(10);
+                        p1.add(tfFirstName);
+                    tfLastName = new JTextField(10);
+                        p2.add(tfLastName);
+                    tfPhoneNumber = new JTextField(10);
+                        p3.add(tfPhoneNumber);
+                    tfAddress = new JTextField(10);
+                        p4.add(tfAddress);
+                    tfCreditNumber = new JTextField(10);
+                        p5.add(tfCreditNumber);
+                    tfSecurityCode = new JTextField(10);
+                        p6.add(tfSecurityCode);
+
+                    pCredit.add(p7);
+                    pCredit.add(p1);
+                    pCredit.add(p8);
+                    pCredit.add(p2);
+                    pCredit.add(p9);
+                    pCredit.add(p3);
+                    pCredit.add(p10);
+                    pCredit.add(p4);
+                    pCredit.add(p11);
+                    pCredit.add(p5);
+                    pCredit.add(p12);
+                    pCredit.add(p6);
+
+                JPanel pButton = new JPanel();
+                    btnConfirm = new JButton("Confirm");
+                    pButton.add(btnConfirm);
+                    creditConfirmListener = new CreditConfirmListener();
+                    btnConfirm.addActionListener(creditConfirmListener);
+
+            pCreditConfrim.add(pCredit, BorderLayout.NORTH);
+            pCreditConfrim.add(pButton, BorderLayout.SOUTH);
+
+            taNotification = new JTextArea();
+                taNotification.setEditable(false);
+
+        menuPanel.add(pCreditConfrim, BorderLayout.NORTH);
+        menuPanel.add(taNotification, BorderLayout.CENTER);
+
+    }
+    public void pDebit(){
+        pPayment.removeAll();
+            JPanel pDebitConfrim = new JPanel(new BorderLayout());
+                pDebit = new JPanel(new GridLayout(6,2));
+                    JPanel p1 = new JPanel();
+                    JPanel p2 = new JPanel();
+                    JPanel p3 = new JPanel();
+                    JPanel p4 = new JPanel();
+                    JPanel p5 = new JPanel();
+                    JPanel p6 = new JPanel();
+
+                    JPanel p7 = new JPanel();
+                    JPanel p8 = new JPanel();
+                    JPanel p9 = new JPanel();
+                    JPanel p10 = new JPanel();
+                    JPanel p11 = new JPanel();
+                    JPanel p12 = new JPanel();
+
+                    lblFirstName = new JLabel("First Name:");
+                        p7.add(lblFirstName);
+                    lblLastName = new JLabel("Last Name:");
+                        p8.add(lblLastName);
+                    lblPhoneNumber = new JLabel("Phone Number:");
+                        p9.add(lblPhoneNumber);
+                    lblAddress = new JLabel("Address:");
+                        p10.add(lblAddress);
+                    lblDebitNumber = new JLabel("Debit Card Number:");
+                        p11.add(lblDebitNumber);
+                    lblVerificationCode = new JLabel("Verification Code:");
+                        p12.add(lblVerificationCode);
+
+                    tfFirstName = new JTextField(10);
+                        p1.add(tfFirstName);
+                    tfLastName = new JTextField(10);
+                        p2.add(tfLastName);
+                    tfPhoneNumber = new JTextField(10);
+                        p3.add(tfPhoneNumber);
+                    tfAddress = new JTextField(10);
+                        p4.add(tfAddress);
+                    tfDebitNumber = new JTextField(10);
+                        p5.add(tfDebitNumber);
+                    tfVerificationCode = new JTextField(10);
+                        p6.add(tfVerificationCode);
+
+                    pDebit.add(p7);
+                    pDebit.add(p1);
+                    pDebit.add(p8);
+                    pDebit.add(p2);
+                    pDebit.add(p9);
+                    pDebit.add(p3);
+                    pDebit.add(p10);
+                    pDebit.add(p4);
+                    pDebit.add(p11);
+                    pDebit.add(p5);
+                    pDebit.add(p12);
+                    pDebit.add(p6);
+
+                JPanel pButton = new JPanel();
+                    btnConfirm = new JButton("Confirm");
+                    pButton.add(btnConfirm);
+                    debitConfirmListener = new DebitConfirmListener();
+                    btnConfirm.addActionListener(debitConfirmListener);
+
+            pDebitConfrim.add(pDebit, BorderLayout.NORTH);
+            pDebitConfrim.add(pButton, BorderLayout.SOUTH);
+
+            taNotification = new JTextArea();
+                taNotification.setEditable(false);
+
+        menuPanel.add(pDebitConfrim, BorderLayout.NORTH);
+        menuPanel.add(taNotification, BorderLayout.CENTER);
+
     }
 
     public void createPayMenu(){
-        payMenu = new JMenu("Pay");
-
-        payMenuItemC = new JMenuItem("Credit");
-        payCreditListener = new PayCreditListener();
-        payMenuItemC.addActionListener(payCreditListener);
-
-        payMenuItemD = new JMenuItem("Debit");
-        payDebitListener = new PayDebitListener();
-        payMenuItemD.addActionListener(payDebitListener);
-
-        payMenu.add(payMenuItemC);
-        payMenu.add(payMenuItemD);
-
-        menuBar.add(payMenu);
-
+        pPayment = new JPanel(new GridLayout(1,2));
+            paymentListener = new PaymentListener();
+            btnCredit = new JButton("Credit");
+                btnCredit.addActionListener(paymentListener);
+                pPayment.add(btnCredit);
+            btnDebit = new JButton("Debit");
+                btnDebit.addActionListener(paymentListener);
+                pPayment.add(btnDebit);
+            add(pPayment);
     }
 
-    public void createPayPanelC(){
-        descPanel.removeAll();
-        payPanelC = new JPanel(new GridLayout(3,1));
-        JPanel north = new JPanel(new GridLayout(3,3));
-        JPanel center = new JPanel(new GridLayout(4,3));
-        confirmation1 = new JTextArea();
+    public void getInfoPayD(){
+        firstNameGotten = tfFirstName.getText();
+        lastNameGotten = tfLastName.getText();
+        phoneNumberGotten = tfPhoneNumber.getText();
+        addressGotten = tfAddress.getText();
+        dcNumberGotten = tfDebitNumber.getText();
+        verificationCodeGotten = tfVerificationCode.getText();
 
-        confirm = new JButton("Confirm");
-        confirmListener1 = new ConfirmListener1();
-        confirm.addActionListener(confirmListener1);
-
-        monthField = new JTextField();
-        month = new JLabel("Month:");
-        dayField = new JTextField();
-        day = new JLabel("Day:");
-        timeField = new JTextField();
-        time = new JLabel("Time:");
-
-        center.add(month);
-        center.add(monthField);
-        center.add(day);
-        center.add(dayField);
-        center.add(time);
-        center.add(timeField);
-        center.add(confirm);
-
-        ccNumber = new JLabel("Credit Card Number:");
-        ccTextField = new JTextField(1);
-
-        firstName1 = new JLabel("First Name:");
-        lastName1 = new JLabel("Last Name:");
-
-        fnTextField = new JTextField(1);
-        lnTextField = new JTextField(1);
-
-        north.add(ccNumber);
-        north.add(ccTextField);
-        north.add(firstName1);
-        north.add(fnTextField);
-        north.add(lastName1);
-        north.add(lnTextField);
-        payPanelC.add(north);
-        payPanelC.add(center);
-        payPanelC.add(confirmation1);
-
-        descPanel.add(payPanelC);
-        menuPanel.add(descPanel);
-
+        if(lastNameGotten.isEmpty() || firstNameGotten.isEmpty() || dcNumberGotten.isEmpty() || phoneNumberGotten.isEmpty() || addressGotten.isEmpty() || verificationCodeGotten.isEmpty()){
+            taNotification.setText("Error missing information");
+        }
+        else{
+            taNotification.setText("Payment Successful");
+        }
     }
 
-     public void createPayPanelD(){
-        descPanel.removeAll();
-        payPanelD = new JPanel(new GridLayout(3,1));
-        JPanel north2 = new JPanel(new GridLayout(3,3));
-        JPanel center2 = new JPanel(new GridLayout(4,3));
-        confirmation2 = new JTextArea();
+    public void getInfoPayC(){
+        firstNameGotten = tfFirstName.getText();
+        lastNameGotten = tfLastName.getText();
+        phoneNumberGotten = tfPhoneNumber.getText();
+        addressGotten = tfAddress.getText();
+        ccNumberGotten = tfCreditNumber.getText();
+        securityCodeGotten = tfSecurityCode.getText();
 
-        confirm2 = new JButton("Confirm");
-        confirmListener2 = new ConfirmListener2();
-        confirm2.addActionListener(confirmListener2);
-
-        monthField2 = new JTextField();
-        month2 = new JLabel("Month:");
-        dayField2 = new JTextField();
-        day2 = new JLabel("Day:");
-        timeField2 = new JTextField();
-        time2 = new JLabel("Time:");
-
-        center2.add(month2);
-        center2.add(monthField2);
-        center2.add(day2);
-        center2.add(dayField2);
-        center2.add(time2);
-        center2.add(timeField2);
-        center2.add(confirm2);
-
-        dcNumber = new JLabel("Debit Card Number:");
-        dcTextField = new JTextField(1);
-
-        firstName2 = new JLabel("First Name:");
-        lastName2 = new JLabel("Last Name:");
-
-        fnTextField2 = new JTextField(1);
-        lnTextField2 = new JTextField(1);
-
-        north2.add(dcNumber);
-        north2.add(dcTextField);
-        north2.add(firstName2);
-        north2.add(fnTextField2);
-        north2.add(lastName2);
-        north2.add(lnTextField2);
-        payPanelD.add(north2);
-        payPanelD.add(center2);
-        payPanelD.add(confirmation2);
-
-        descPanel.add(payPanelD);
-        menuPanel.add(descPanel);
-     }
-     public void getInfoPayC(){
-        lastNameGotten = lnTextField.getText();
-        firstNameGotten = fnTextField.getText();
-        ccNumberGotten = ccTextField.getText();
-        dayGotten = dayField.getText();
-        monthGotten = monthField.getText();
-        timeGotten = timeField.getText();
-
-        if(lastNameGotten.isEmpty() || firstNameGotten.isEmpty() || ccNumberGotten.isEmpty() || dayGotten.isEmpty() || monthGotten.isEmpty() || timeGotten.isEmpty()){
-            confirmation1.setText("Error missing information");
+        if(lastNameGotten.isEmpty() || firstNameGotten.isEmpty() || ccNumberGotten.isEmpty() || phoneNumberGotten.isEmpty() || addressGotten.isEmpty() || securityCodeGotten.isEmpty()){
+            taNotification.setText("Error missing information");
         }
         else{
-        confirmDate1 = firstNameGotten + " " + lastNameGotten + " scheduled at " + monthGotten + " " + dayGotten + " at " + timeGotten + " using CC# " + ccNumberGotten;
-        confirmation1.setText(confirmDate1);
+            taNotification.setText("Payment Successful");
         }
-     } 
-
-     public void getInfoPayD(){
-        lastNameGotten = lnTextField2.getText();
-        firstNameGotten = fnTextField2.getText();
-        ccNumberGotten = dcTextField.getText();
-        dayGotten = dayField2.getText();
-        monthGotten = monthField2.getText();
-        timeGotten = timeField2.getText();
-
-        if(lastNameGotten.isEmpty() || firstNameGotten.isEmpty() || ccNumberGotten.isEmpty() || dayGotten.isEmpty() || monthGotten.isEmpty() || timeGotten.isEmpty()){
-            confirmation2.setText("Error missing information");
-        }
-        else{
-        confirmDate2 = firstNameGotten + " " + lastNameGotten + " scheduled at " + monthGotten + " " + dayGotten + " at " + timeGotten + " using DC# " + ccNumberGotten;
-        confirmation2.setText(confirmDate2);
-        }
-     } 
+    }
 }
